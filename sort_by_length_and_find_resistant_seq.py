@@ -1,13 +1,8 @@
-import Bio
 from Bio import SeqIO
 from Bio import Seq
 from Bio.Seq import Seq
 from Bio.SeqRecord import SeqRecord
-import re
 import time
-import json
-from Bio.Alphabet import IUPAC
-import pylab
 import csv
 from Bio import Entrez
 import os
@@ -60,7 +55,7 @@ if __name__ == '__main__':
 
         filename = entrez_dir+accID+".xml"
         if os.path.isfile(filename):#does XML file exist
-            handle = open(filename, 'r')
+            handle = open(filename, 'rb')
             record = Entrez.read(handle)
             handle.close()
             
@@ -129,7 +124,7 @@ if __name__ == '__main__':
                 
                 #save all info to csv file
                 writer.writerow({'Lib':str(LibStr),'AccID':str(accID),'Length':str(currentlengthnt), 'Source': record[0]["GBSeq_source"],'TaxID':str(taxid), 'Taxa1': taxa_split_1, 'Taxa2': taxa_split_2, 'Taxa3': taxa_split_3, 'Taxa4': taxa_split_4, 'Definition': desc_split[0],'Sequence':str(currentseq)})
-                recseq = Seq(currentseq.upper(),IUPAC.protein)
+                recseq = Seq(currentseq.upper())
                 record = SeqRecord(recseq,id=accID)
                 parsed_fasta.append(record)
         current_seq_counter += 1

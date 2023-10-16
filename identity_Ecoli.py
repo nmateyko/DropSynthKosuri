@@ -1,18 +1,6 @@
-import Bio
 from Bio import SeqIO
-from Bio import Seq
-from Bio.Seq import Seq
-from Bio.SeqRecord import SeqRecord
-import re
 import time
-import json
-from Bio.Alphabet import IUPAC
-import pylab
 import csv
-from Bio import Entrez
-import os
-import itertools
-import math
 from Bio import pairwise2
 
 def getFastaSeqs(filename):

@@ -1,13 +1,7 @@
 import csv
-import Bio
 from Bio import Seq
 from Bio.Seq import Seq
-from Bio.SeqRecord import SeqRecord
-from Bio import SeqIO
-from Bio.Alphabet import IUPAC
 from Bio.Alphabet import generic_dna
-import re
-import math
 
 ##################################
 #INPUTS:

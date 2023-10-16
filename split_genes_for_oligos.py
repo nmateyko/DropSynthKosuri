@@ -9,7 +9,6 @@
 from Bio import SeqIO
 import random
 random.seed(15643243242342759)
-from Bio.Alphabet import generic_dna, generic_protein
 from Bio.Seq import Seq
 from Bio.SeqRecord import SeqRecord
 from Bio import Restriction
@@ -133,10 +132,10 @@ def codonOptimize_two(codons, record, gentwo,furthest_codon):
                 if gentwo:
                     sequence2 = sequence2 + furthest_codon[i[0]]
                 break
-    newseq = Seq(sequence,generic_dna)
+    newseq = Seq(sequence)
     newrecord = SeqRecord(newseq, id=record.id)
     if gentwo:
-        newseq2 = Seq(sequence2,generic_dna)
+        newseq2 = Seq(sequence2)
         newrecord2 = SeqRecord(newseq2, id=record.id)
         
         alignment = pairwise2.align.globalxx(newrecord.seq, newrecord2.seq, one_alignment_only=1, score_only=1)
@@ -216,7 +215,7 @@ def removeSite(seqrecord, site, codons, revcodons,firstinstance=True):
         
 
 def changeRestrictionSites(seqrecord, codons, revcodons):
-    tempseq = Seq(str(seqrecord.seq),generic_dna)
+    tempseq = Seq(str(seqrecord.seq))
     newseqrecord = SeqRecord(tempseq,id=seqrecord.id,description=seqrecord.description)
     rb = RestrictionBatch([NdeI, EcoRI, KpnI, BtsI, BspQI])
     #print seqrecord.id
@@ -225,12 +224,12 @@ def changeRestrictionSites(seqrecord, codons, revcodons):
     #print reanalysis
     for key in reanalysis:
         for i in reanalysis[key]:
-            seqkey = Seq(key.site, generic_dna)
+            seqkey = Seq(key.site)
             removeSite(newseqrecord, seqkey, codons, revcodons)
     return newseqrecord
 
 def changeRestrictionSites2(seqrecordin, codons, revcodons):
-    tempseq = Seq(str(seqrecordin.seq),generic_dna)
+    tempseq = Seq(str(seqrecordin.seq))
     seqrecord = SeqRecord(tempseq,id=seqrecordin.id,description=seqrecordin.description)
     rb = RestrictionBatch([BtsI, BspQI,EcoRI])
     reanalysis = rb.search(seqrecord.seq)
@@ -238,7 +237,7 @@ def changeRestrictionSites2(seqrecordin, codons, revcodons):
     #if there is BtsI or BspQI or EcoRI, juggle codons to remove site:
     for key in reanalysis:
         for i in reanalysis[key]:
-            seqkey = Seq(key.site, generic_dna)
+            seqkey = Seq(key.site)
             removeSite(seqrecord, seqkey, codons, revcodons)
     
     rb = RestrictionBatch([NdeI, KpnI])
@@ -248,10 +247,10 @@ def changeRestrictionSites2(seqrecordin, codons, revcodons):
     for key in reanalysis:
         if len(reanalysis[key])>1:
             if key==NdeI:
-                seqkey = Seq(key.site, generic_dna)
+                seqkey = Seq(key.site)
                 removeSite(seqrecord, seqkey, codons, revcodons,False)
             else:
-                seqkey = Seq(key.site, generic_dna)
+                seqkey = Seq(key.site)
                 removeSite(seqrecord, seqkey, codons, revcodons)
     return seqrecord
 
@@ -284,7 +283,7 @@ def addBufferREsites(seqrecordin,add_stop_codon):
     #print(str(seqrecordin.seq[0:3]).upper())
     if not ("ATG" == str(seqrecordin.seq[0:3]).upper()):
         print("Error! Sequence does not start with ATG. "+str(seqrecordin.id))
-    newseq = Seq(forward_buffer + str(seqrecordin.seq) + reverse_buffer,generic_dna)
+    newseq = Seq(forward_buffer + str(seqrecordin.seq) + reverse_buffer)
     record = SeqRecord(newseq,id=seqrecordin.id,description=seqrecordin.description)
     
     return record
@@ -294,11 +293,11 @@ def addAssemblyPrimers(seqrecordin, forward_buffer, reverse_buffer, padding_var,
     pad_added_length = 0
     if (padding_var == False) or ((padding_var == True) and (seqlength >= padding_length)):
         tempseq = forward_buffer.seq + seqrecordin.seq + reverse_buffer.seq.reverse_complement()
-        #tempseq = Seq(str(forward_buffer + seqrecordin.seq + reverse_buffer),generic_dna)
+        #tempseq = Seq(str(forward_buffer + seqrecordin.seq + reverse_buffer))
     else:
         pad_random_seq = randomDNA(padding_length-len(seqrecordin.seq))
-        tempseq = forward_buffer.seq + seqrecordin.seq + Seq(pad_random_seq,generic_dna) + reverse_buffer.seq.reverse_complement()
-        #tempseq = Seq(str(forward_buffer + seqrecordin.seq + pad_random_seq + reverse_buffer),generic_dna)
+        tempseq = forward_buffer.seq + seqrecordin.seq + Seq(pad_random_seq) + reverse_buffer.seq.reverse_complement()
+        #tempseq = Seq(str(forward_buffer + seqrecordin.seq + pad_random_seq + reverse_buffer))
         pad_added_length = len(pad_random_seq)
     seqrecord = SeqRecord(tempseq,id=seqrecordin.id,description=seqrecordin.description)
     return seqrecord, pad_added_length
@@ -329,7 +328,7 @@ def checkOligos(oligosin):
     checkOligos_msg = ""
     #check that adding BtsaI sites doesn't introduce new restriction sites
     for i in range(1,len(oligosin)):
-        newoligo = Seq("GCAGTG",generic_dna) + oligosin[i] + Seq("CACTGC",generic_dna)
+        newoligo = Seq("GCAGTG") + oligosin[i] + Seq("CACTGC")
         rb = RestrictionBatch([BtsI, BspQI, NdeI, KpnI,EcoRI])
         seqsearch = rb.search(newoligo)
         if i==0:

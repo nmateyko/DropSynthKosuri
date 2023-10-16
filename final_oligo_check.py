@@ -1,7 +1,5 @@
 from Bio import SeqIO
 from Bio.Seq import Seq
-from Bio.SeqRecord import SeqRecord
-from Bio.Alphabet import IUPAC
 from Bio.Alphabet import generic_dna
 from Bio.Restriction import *
 

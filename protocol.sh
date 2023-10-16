@@ -8,9 +8,9 @@ echo "Screening assembly and amplification primers."
 #screen primers
 python primer_screen.py
 
-echo "Downloading DHFR records from NCBI Entrez. (slow)"
+# echo "Downloading DHFR records from NCBI Entrez. (slow)"
 #get XML files for each homolog (can take long if download required)
-python entrez_get_XML.py
+# python entrez_get_XML.py
 
 echo "Sort records by sequence length and finding antibiotic resistant homologs."
 #sort sequences by length into those needed 4 oligo and 5 oligo for assembly

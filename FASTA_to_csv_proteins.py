@@ -1,11 +1,8 @@
-import Bio
 import csv
 from Bio import SeqIO
 from Bio import Entrez
 from Bio.Seq import Seq
 from Bio.SeqRecord import SeqRecord
-from Bio.Alphabet import IUPAC
-from Bio.Alphabet import generic_dna, generic_protein
 from Bio.Restriction import *
 import time
 import os
@@ -55,7 +52,7 @@ IDlist = []
 #all protein records:
 buildseqs = []
 
-Ecoliseq = Seq("MISLIAALAVDRVIGMENAMPWNLPADLAWFKRNTLNKPVIMGRHTWESIGRPLPGRKNIILSSQPGTDDRVTWVKSVDEAIAACGDVPEIMVIGGGRVYEQFLPKAQKLYLTHIDAEVEGDTHFPDYEPDDWESVFSEFHDADAQNSHSYCFEILERR",generic_protein)
+Ecoliseq = Seq("MISLIAALAVDRVIGMENAMPWNLPADLAWFKRNTLNKPVIMGRHTWESIGRPLPGRKNIILSSQPGTDDRVTWVKSVDEAIAACGDVPEIMVIGGGRVYEQFLPKAQKLYLTHIDAEVEGDTHFPDYEPDDWESVFSEFHDADAQNSHSYCFEILERR")
 Ecolirecord = SeqRecord(Ecoliseq,id="NP_414590",description="")
 
 entrez_dir = "folA_entrez/"

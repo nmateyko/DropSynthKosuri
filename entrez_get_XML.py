@@ -1,4 +1,3 @@
-import Bio
 import time
 from Bio import Entrez
 import os

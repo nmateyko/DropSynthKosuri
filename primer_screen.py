@@ -1,7 +1,6 @@
 from Bio import SeqIO
 from Bio.Restriction import *
 from Bio.Seq import Seq
-from Bio.Alphabet import generic_dna
 
 #screen primer pairs for restriction sites
 #asmF: BtsaI + AsmF + NdeI
@@ -29,10 +28,10 @@ asmR_file = 'asmprimers-skpp20/reverse_finalprimers.fasta'
 ampF_file = 'ampprimers-skpp15/skpp15-forward.faa'
 ampR_file = 'ampprimers-skpp15/skpp15-reverse.faa'
 
-BtsaI_seq = Seq('GCAGTG',generic_dna)
-BspQI_seq = Seq('GCTCTTCNNN',generic_dna)
-KpnI_seq = Seq('GGTACC',generic_dna)
-NdeI_seq = Seq('CATATG',generic_dna)
+BtsaI_seq = Seq('GCAGTG')
+BspQI_seq = Seq('GCTCTTCNNN')
+KpnI_seq = Seq('GGTACC')
+NdeI_seq = Seq('CATATG')
 
 asmFseqs = getFastaSeqs(asmF_file)
 asmRseqs = getFastaSeqs(asmR_file)
@@ -91,7 +90,7 @@ counter = 0
 #loop over AsmR
 for primer in asmRseqs:
     #build the sequence
-    current_seq = Seq('TAA',generic_dna) + KpnI_seq + primer.seq.reverse_complement() + BtsaI_seq.reverse_complement()
+    current_seq = Seq('TAA') + KpnI_seq + primer.seq.reverse_complement() + BtsaI_seq.reverse_complement()
     #find illegal sites
     seqsearch = rb.search(current_seq)
     if len(seqsearch[BtsI])!=1 or len(seqsearch[BspQI])!=0 or len(seqsearch[NdeI])!= 0 or len(seqsearch[KpnI])!=1 or len(seqsearch[EcoRI])!=0:

@@ -1,9 +1,6 @@
-import os, math, subprocess, copy
-from Bio import SeqIO
+import math, subprocess
 from Bio.Seq import Seq
 from Bio.SeqRecord import SeqRecord
-from Bio.Alphabet import generic_dna
-import string
 import functools
 
 def cmp(a, b):
@@ -176,7 +173,7 @@ def checkRestrictionEnzyme(oligos, restrictionsite, restrictionsiteRC):
 
 def padOligo(buildseq, oligo, padlength):
     padString = 'T' * padlength
-    endpad = Seq(padString, generic_dna)
+    endpad = Seq(padString)
     newoligo = oligo
     #find oligo
     index = buildseq.find(oligo)
@@ -205,7 +202,7 @@ def bufferOligoSequences(buildseq, oligos, restrictionenzyme, restrictionenzymeb
     newoligos = []
     for oligo in oligos:
         newoligo = padOligo(buildseq, oligo, restrictionenzymebuffer)
-        newoligo = Seq(restrictionenzyme.site, generic_dna)  + newoligo  + Seq(restrictionenzyme.site, generic_dna).reverse_complement()
+        newoligo = Seq(restrictionenzyme.site)  + newoligo  + Seq(restrictionenzyme.site).reverse_complement()
         newoligo = forwardprimer.seq + newoligo + reverseprimer.seq.reverse_complement()
         newoligo = plateforwardprimer.seq + newoligo + platereverseprimer.seq.reverse_complement()
         newoligos.append(newoligo)

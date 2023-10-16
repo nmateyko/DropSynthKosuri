@@ -1,16 +1,10 @@
-import Bio
 from Bio import SeqIO
 from Bio import Seq
 from Bio.Seq import Seq
 from Bio.SeqRecord import SeqRecord
-import re
 import time
-from Bio.Alphabet import IUPAC
-import pylab
 import csv
-import math
 import random
-import hashlib
 from random import randrange
 random.seed(15643243242342759)
 
@@ -112,7 +106,7 @@ if __name__ == '__main__':
         if (not (currentseq in uniqseqdict) and not (accID in badIDsarray) and 
             (seqlength >min_nt) and (seqlength <=max_nt) and not ('X' in currentseq)):
             
-            recseq = Seq(currentseq.upper(),IUPAC.protein)
+            recseq = Seq(currentseq.upper())
             record = SeqRecord(recseq,id=accID)
             uniqseqdict[currentseq] = accID
             seqList.append(currentseq)

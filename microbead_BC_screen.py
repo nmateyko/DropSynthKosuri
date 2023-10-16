@@ -1,7 +1,5 @@
 from Bio import SeqIO
 from Bio.Restriction import *
-from Bio.Seq import Seq
-from Bio.Alphabet import generic_dna
 
 def getFastaSeqs(filename):
     fastaseqs = []
