@@ -27,4 +27,6 @@ oligos = Primerselectiontools_py3.optimizedSplit(seq=seq, oligosizemax=args.olig
                                                  positionleeway=args.positionleeway, avgoverlapsize=args.avgoverlapsize,
                                                  overlaptemps=args.overlaptemps, deltaGThreshold=args.deltaGThreshold,
                                                  selfDimersThreshold=args.selfDimersThreshold, num_of_oligos=args.num_of_oligos)
-print(oligos)
+with open(args.output, 'w') as f:
+    for oligo in oligos:
+        f.write(oligo + '\n')
